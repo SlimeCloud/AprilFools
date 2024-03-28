@@ -8,7 +8,7 @@ plugins {
     id "com.github.johnrengelman.shadow" version "7.1.0"
 }
 
-mainClassName = "de.slimecloud.slimeball.main.Main"
+mainClassName = "de.slimecloud.april.main.Main"
 
 group 'de.slimecloud'
 version '24.4.0.1' //EventYear.EventMonth.MajorVersion.PatchVersion
