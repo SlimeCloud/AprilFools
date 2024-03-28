@@ -8,10 +8,10 @@ plugins {
     id "com.github.johnrengelman.shadow" version "7.1.0"
 }
 
-mainClassName = "de.slimecloud.template.main.Main"
+mainClassName = "de.slimecloud.slimeball.main.Main"
 
-group 'de.slimecloud'
-version '1.0'
+group 'com.slimebot'
+version '3.5.2'
 
 repositories {
     mavenCentral()
@@ -24,13 +24,17 @@ repositories {
 String lombokDependency = 'org.projectlombok:lombok:1.18.30'
 
 dependencies {
-    implementation 'net.dv8tion:JDA:5.0.0-beta.19'
+    implementation 'net.dv8tion:JDA:5.0.0-beta.21'
+    implementation 'club.minnced:discord-webhooks:0.8.4'
 
-    implementation('de.mineking:DiscordUtils:3.8.1')
-    implementation 'de.mineking:JavaUtils:1.3.2'
-    implementation 'de.cyklon:JEvent:1.1.0'
+    implementation 'de.mineking:DiscordUtils:8fd1948'
+    implementation 'de.mineking:JavaUtils:3ffa11e'
+    implementation 'de.cyklon:ReflectionUtils:fa134db'
+    implementation 'de.cyklon:JEvent:879a575'
 
+    implementation 'se.michaelthelin.spotify:spotify-web-api-java:8.3.4'
     implementation 'com.github.minndevelopment:emoji-java:master-SNAPSHOT'
+    implementation 'org.kohsuke:github-api:1.318'
 
     implementation 'io.github.cdimascio:java-dotenv:5.2.2'
     implementation 'com.google.code.gson:gson:2.10.1'
