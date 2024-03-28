@@ -59,10 +59,10 @@ public class AprilListener extends ListenerAdapter {
 	@NotNull
 	private RestAction<JDAWebhookClient> getWebhook(@NotNull IWebhookContainer channel) {
 		return channel.retrieveWebhooks().flatMap(hooks -> hooks.stream()
-				.filter(w -> w.getName().equals("1. April"))
+				.filter(w -> w.getName().equals("1. April " + channel.getJDA().getSelfUser().getIdLong()))
 				.findAny()
 				.map(bot::wrap)
-				.orElse(channel.createWebhook("1. April"))
+				.orElse(channel.createWebhook("1. April " + channel.getJDA().getSelfUser().getIdLong()))
 		).map(w -> JDAWebhookClient.withUrl(w.getUrl()));
 	}
 }
