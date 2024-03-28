@@ -36,7 +36,7 @@ public class AprilListener extends ListenerAdapter {
 			if(message.stream().map(String::toLowerCase).noneMatch(words::contains)) return;
 			event.getMessage().delete().queue();
 
-			Matcher matcher = Pattern.compile("(?<=\\W)(?<word>" + words.stream().map(Pattern::quote).collect(Collectors.joining("|")) + ")(?=\\W)", Pattern.CASE_INSENSITIVE).matcher(content);
+			Matcher matcher = Pattern.compile("(?<=\\W|^)(?<word>" + words.stream().map(Pattern::quote).collect(Collectors.joining("|")) + ")(?=\\W|$)", Pattern.CASE_INSENSITIVE).matcher(content);
 			StringBuilder result = new StringBuilder();
 
 			while(matcher.find()) {
