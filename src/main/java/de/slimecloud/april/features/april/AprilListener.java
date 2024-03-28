@@ -5,10 +5,12 @@ import club.minnced.discord.webhook.send.WebhookMessageBuilder;
 import de.slimecloud.april.main.Bot;
 import de.slimecloud.april.main.SlimeEmoji;
 import lombok.RequiredArgsConstructor;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.attribute.IWebhookContainer;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -36,20 +38,16 @@ public class AprilListener extends ListenerAdapter {
 			if(message.stream().map(String::toLowerCase).noneMatch(words::contains)) return;
 			event.getMessage().delete().queue();
 
-			Matcher matcher = Pattern.compile("(?<=\\W|^)(?<word>" + words.stream().map(Pattern::quote).collect(Collectors.joining("|")) + ")(?=\\W|$)", Pattern.CASE_INSENSITIVE).matcher(content);
-			StringBuilder result = new StringBuilder();
-
-			while(matcher.find()) {
-				matcher.appendReplacement(result, " " + Matcher.quoteReplacement(SlimeEmoji.SUS.getEmoji(event.getGuild()).getFormatted().repeat(matcher.group("word").length())) + " ");
-			}
-
-			matcher.appendTail(result);
-
 			getWebhook(event.getChannel().asTextChannel()).queue(webhook ->
 					webhook.send(new WebhookMessageBuilder()
 							.setUsername(event.getMember().getEffectiveName())
 							.setAvatarUrl(event.getMember().getEffectiveAvatarUrl())
-							.setContent(result.toString())
+							.setContent(StringUtils.abbreviate(
+									content.replaceAll(
+											"(?i)(?<=\\W|^)(?<word>" + words.stream().map(Pattern::quote).collect(Collectors.joining("|")) + ")(?=\\W|$)",
+											Matcher.quoteReplacement(SlimeEmoji.SUS.getEmoji(event.getGuild()).getFormatted())
+									), Message.MAX_CONTENT_LENGTH
+							))
 							.build()
 					)
 			);
