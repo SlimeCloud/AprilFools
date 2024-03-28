@@ -10,8 +10,8 @@ plugins {
 
 mainClassName = "de.slimecloud.slimeball.main.Main"
 
-group 'com.slimebot'
-version '3.5.2'
+group 'de.slimecloud'
+version '24.4.0.1' //EventYear.EventMonth.MajorVersion.PatchVersion
 
 repositories {
     mavenCentral()

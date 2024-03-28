@@ -1,8 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Run" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="de.slimecloud.template.main.Main" />
-    <module name="TemplateBot.main" />
-    <option name="PROGRAM_PARAMETERS" value="test" />
+    <option name="MAIN_CLASS_NAME" value="de.slimecloud.april.main.Main" />
+    <module name="AprilFools-Event.main" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/run" />
     <method v="2">
       <option name="Make" enabled="true" />
