@@ -32,8 +32,8 @@ public class AprilListener extends ListenerAdapter {
 
 			String content = event.getMessage().getContentRaw();
 
-			List<String> message = Arrays.asList(content.split(" "));
-			List<String> words = Arrays.asList(config.getMessage().toLowerCase().split(" "));
+			List<String> message = Arrays.asList(content.split("\\W+"));
+			List<String> words = Arrays.asList(config.getMessage().toLowerCase().split("\\W+"));
 
 			if(message.stream().map(String::toLowerCase).noneMatch(words::contains)) return;
 			event.getMessage().delete().queue();
