@@ -28,15 +28,15 @@ public class AprilListener extends ListenerAdapter {
 		bot.loadGuild(event.getGuild()).getApril().ifPresent(config -> {
 			if(config.getMessage() == null) return;
 
-			String content = event.getMessage().getContentRaw().toLowerCase();
+			String content = event.getMessage().getContentRaw();
 
 			List<String> message = Arrays.asList(content.split(" "));
 			List<String> words = Arrays.asList(config.getMessage().toLowerCase().split(" "));
 
-			if(message.stream().noneMatch(words::contains)) return;
+			if(message.stream().map(String::toLowerCase).noneMatch(words::contains)) return;
 			event.getMessage().delete().queue();
 
-			Matcher matcher = Pattern.compile("(?<=\\s|^)(?<word>" + words.stream().map(Pattern::quote).collect(Collectors.joining("|")) + ")(?=\\s|$)", Pattern.CASE_INSENSITIVE).matcher(content);
+			Matcher matcher = Pattern.compile("(?<=\\W)(?<word>" + words.stream().map(Pattern::quote).collect(Collectors.joining("|")) + ")(?=\\W)", Pattern.CASE_INSENSITIVE).matcher(content);
 			StringBuilder result = new StringBuilder();
 
 			while(matcher.find()) {
