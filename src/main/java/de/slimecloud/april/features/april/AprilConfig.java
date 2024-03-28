@@ -4,7 +4,7 @@ import de.slimecloud.april.config.ConfigCategory;
 import de.slimecloud.april.config.engine.ConfigField;
 import de.slimecloud.april.config.engine.ConfigFieldType;
 import lombok.Getter;
-import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.entities.channel.middleman.GuildMessageChannel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -18,7 +18,7 @@ public class AprilConfig extends ConfigCategory {
 	private Long channel;
 
 	@NotNull
-	public Optional<MessageChannel> getChannel() {
-		return Optional.ofNullable(bot.getJda().getChannelById(MessageChannel.class, channel));
+	public Optional<GuildMessageChannel> getChannel() {
+		return Optional.ofNullable(channel).map(id -> bot.getJda().getChannelById(GuildMessageChannel.class, id));
 	}
 }
