@@ -71,6 +71,8 @@ public class GuildConfig {
 		this.guild = guild;
 		this.path = path;
 
+		if (april != null) april.bot = bot;
+
 		return this;
 	}
 

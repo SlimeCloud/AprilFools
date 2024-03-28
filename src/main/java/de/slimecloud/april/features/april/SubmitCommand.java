@@ -22,7 +22,9 @@ public class SubmitCommand {
 	public void performCommand(@NotNull Bot bot, @NotNull SlashCommandInteractionEvent event,
 	                           @Option(description = "Deine Lösung") String satz
 	) {
-		bot.loadGuild(event.getGuild()).getLogChannel().ifPresentOrElse(
+		GuildConfig config = bot.loadGuild(event.getGuild());
+
+		config.getApril().flatMap(AprilConfig::getChannel).or(config::getLogChannel).ifPresentOrElse(
 				channel -> {
 					channel.sendMessageEmbeds(new EmbedBuilder()
 							.setAuthor(event.getMember().getEffectiveName(), null, event.getMember().getEffectiveAvatarUrl())
