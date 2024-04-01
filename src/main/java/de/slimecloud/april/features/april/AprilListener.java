@@ -7,6 +7,7 @@ import de.slimecloud.april.main.SlimeEmoji;
 import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.attribute.IWebhookContainer;
+import net.dv8tion.jda.api.entities.channel.concrete.ThreadChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.RestAction;
@@ -38,19 +39,21 @@ public class AprilListener extends ListenerAdapter {
 			if(message.stream().map(String::toLowerCase).noneMatch(words::contains)) return;
 			event.getMessage().delete().queue();
 
-			getWebhook(event.getChannel().asTextChannel()).queue(webhook ->
-					webhook.send(new WebhookMessageBuilder()
-							.setUsername(event.getMember().getEffectiveName())
-							.setAvatarUrl(event.getMember().getEffectiveAvatarUrl())
-							.setContent(StringUtils.abbreviate(
-									content.replaceAll(
-											"(?i)(?<=\\W|^)(?<word>" + words.stream().map(Pattern::quote).collect(Collectors.joining("|")) + ")(?=\\W|$)",
-											Matcher.quoteReplacement(SlimeEmoji.SUS.getEmoji(event.getGuild()).getFormatted())
-									), Message.MAX_CONTENT_LENGTH
-							))
-							.build()
-					)
-			);
+			getWebhook(event.getChannel() instanceof ThreadChannel ch ? (IWebhookContainer) ch.getParentChannel() : (IWebhookContainer) event.getChannel()).queue(webhook -> {
+				if(event.getChannel() instanceof ThreadChannel tc) webhook = webhook.onThread(tc.getIdLong());
+
+				webhook.send(new WebhookMessageBuilder()
+						.setUsername(event.getMember().getEffectiveName())
+						.setAvatarUrl(event.getMember().getEffectiveAvatarUrl())
+						.setContent(StringUtils.abbreviate(
+								content.replaceAll(
+										"(?i)(?<=\\W|^)(?<word>" + words.stream().map(Pattern::quote).collect(Collectors.joining("|")) + ")(?=\\W|$)",
+										Matcher.quoteReplacement(SlimeEmoji.SUS.getEmoji(event.getGuild()).getFormatted())
+								), Message.MAX_CONTENT_LENGTH
+						))
+						.build()
+				);
+			});
 		});
 	}
 
