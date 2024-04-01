@@ -47,7 +47,7 @@ public class AprilListener extends ListenerAdapter {
 						.setAvatarUrl(event.getMember().getEffectiveAvatarUrl())
 						.setContent(StringUtils.abbreviate(
 								content.replaceAll(
-										"(?i)(?<=\\W|^)(?<word>" + words.stream().map(Pattern::quote).collect(Collectors.joining("|")) + ")(?=\\W|$)",
+										"(?i)(?<=\\W|_|^)(?<word>" + words.stream().map(Pattern::quote).collect(Collectors.joining("|")) + ")(?=\\W|_|$)",
 										Matcher.quoteReplacement(SlimeEmoji.SUS.getEmoji(event.getGuild()).getFormatted())
 								), Message.MAX_CONTENT_LENGTH
 						))
