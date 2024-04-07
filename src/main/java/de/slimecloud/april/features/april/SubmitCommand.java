@@ -25,9 +25,9 @@ import java.util.concurrent.TimeUnit;
 public class SubmitCommand {
 	public final IRegistrationCondition<ICommandContext> condition = (manager, guild, cache) -> cache.<GuildConfig>getState("config").getApril().isPresent();
 
-	@Cooldown(interval = 4, unit = TimeUnit.HOURS, auto = false, identifier = "april")
+	@Cooldown(interval = 1, unit = TimeUnit.HOURS, auto = false, identifier = "april")
 	public void handleCooldown(@NotNull ICommandContext context) {
-		context.getEvent().reply(":timer: :x: Du kannst nur 1 mal alle 4 Stunden eine Lösung Einreichen!").setEphemeral(true).queue();
+		context.getEvent().reply(":timer: :x: Du kannst nur 1 mal jede Stunde eine Lösung Einreichen!").setEphemeral(true).queue();
 	}
 
 	@ApplicationCommandMethod
@@ -37,7 +37,7 @@ public class SubmitCommand {
 		event.replyEmbeds(new EmbedBuilder()
 				.setTitle("Einreichung Bestätigen")
 				.setColor(bot.getColor(event.getGuild()))
-				.setDescription("Möchtest du diese Lösung wirklich einreichen? Du kannst nur **alle 4 Stunden** eine Lösung einreichen und nur die **letzte wird gewertet**!")
+				.setDescription("Möchtest du diese Lösung wirklich einreichen? Du kannst nur **jede Stunde** eine Lösung einreichen und nur die **letzte wird gewertet**!")
 				.addField(
 						"Aktuelle Lösung",
 						satz,
