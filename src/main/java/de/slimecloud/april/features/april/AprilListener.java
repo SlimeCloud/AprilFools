@@ -30,6 +30,7 @@ public class AprilListener extends ListenerAdapter {
 
 		bot.loadGuild(event.getGuild()).getApril().ifPresent(config -> {
 			if(config.getMessage() == null) return;
+			if(!config.getChannels().isEmpty() && !config.getChannels().contains(event.getChannel().getIdLong())) return;
 
 			String content = event.getMessage().getContentRaw();
 

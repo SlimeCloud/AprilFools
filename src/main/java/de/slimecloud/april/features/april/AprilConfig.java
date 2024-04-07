@@ -7,12 +7,17 @@ import lombok.Getter;
 import net.dv8tion.jda.api.entities.channel.middleman.GuildMessageChannel;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Getter
 public class AprilConfig extends ConfigCategory {
 	@ConfigField(name = "Lösungs-Satz", command = "message", description = "Der notwendige Lösungssatz", type = ConfigFieldType.STRING, required = true)
 	private String message;
+
+	@ConfigField(name = "Kanäle", command = "filter", description = "Kanäle, in denen die Emojis angewandt werden (oder Alle)", type = ConfigFieldType.MESSAGE_CHANNEL)
+	private List<Long> channels = new ArrayList<>();
 
 	@ConfigField(name = "Kanal", command = "channel", description = "Kanal für Einreichungen", type = ConfigFieldType.MESSAGE_CHANNEL)
 	private Long channel;
