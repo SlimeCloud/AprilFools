@@ -3,7 +3,7 @@
 
 # 👋 April Scherz 2024 Bot
 
-Diese Repository enthält den Quellcode des Bots vom **Aptil Events 2024** auf dem [SlimeCloud Discord Server](https://discord.gg/slimecloud).
+Diese Repository enthält den Quellcode des Bots vom **April Events 2024** auf dem [SlimeCloud Discord Server](https://discord.gg/slimecloud).
 Wenn du Fragen hast oder dich mit anderen Entwicklern austauschen möchtest, kannst du gerne in
 der [#👾│tüftlerecke](https://discord.com/channels/1077255218728796192/1098707158750724186) auf
 dem [SlimeCloud Discord Server](https://discord.gg/slimecloud) vorbeischauen.
